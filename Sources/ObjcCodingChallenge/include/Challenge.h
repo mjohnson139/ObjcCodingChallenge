@@ -6,7 +6,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)reverse:(NSString *)str;
 
-- (NSInteger)fibbonacci:(NSInteger)n;
+- (NSInteger)fibonacci:(NSInteger)n;
 
 - (NSDictionary<NSNumber *, NSString *> *)fizzBuzz;
 

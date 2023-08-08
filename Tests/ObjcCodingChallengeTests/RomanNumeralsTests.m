@@ -60,11 +60,9 @@
     NSArray *outOfBoundsNumbers = @[@-5, @0, @4000];
     
     for (NSNumber *number in outOfBoundsNumbers) {
-        NSError *error;
         NSString *result = [self.codingChallenge convertArabicToRomanNumerals:number.integerValue];
-        XCTAssertNil(result, @"Should not have returned a result for out-of-bounds number: %@", number);
-        XCTAssertNotNil(error, @"Should have produced an error for out-of-bounds number: %@", number);
-        XCTAssertEqualObjects(error.localizedDescription, @"Number outside of range.", @"Unexpected error description for number: %@", number);
+        NSString *expected = @"Number outside of range.";
+        XCTAssertEqualObjects(result, expected, @"Unexpected error description for number: %@", number);
     }
 }
 
