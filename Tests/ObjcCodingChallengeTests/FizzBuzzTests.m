@@ -28,33 +28,34 @@
 }
 
 - (void)testGeneralNumbers {
-    NSArray<NSNumber *> *fizzNumbers = @[@3, @6, @9, @12, @18, @21, @24, @27, @33, @36, @39, @42, @48, @51, @54, @57, @63, @66, @69, @72, @78, @81, @84, @87, @93, @99];
-    NSArray<NSNumber *> *buzzNumbers = @[@5, @10, @20, @25, @35, @40, @50, @55, @65, @70, @80, @85, @95];
+    NSArray<NSNumber *> *fizzNumbers = @[@3, @6, @9, @12, @18, @21, @24, @27, @33, @36, @39, @42, @48, @51, @54, @57, @63, @66, @69, @72, @78, @81, @84, @87, @93, @96, @99];
+    NSArray<NSNumber *> *buzzNumbers = @[@5, @10, @20, @25, @35, @40, @50, @55, @65, @70, @80, @85, @95, @100];
     NSArray<NSNumber *> *fizzBuzzNumbers = @[@15, @30, @45, @60, @75, @90];
-    
-    NSMutableArray<NSNumber *> *remainingNumbers = [NSMutableArray array];
+
+    NSMutableSet *remainingNumbersSet = [NSMutableSet setWithCapacity:100];
     for (NSInteger i = 1; i <= 100; i++) {
-        if (![fizzNumbers containsObject:@(i)] && ![buzzNumbers containsObject:@(i)] && ![fizzBuzzNumbers containsObject:@(i)]) {
-            [remainingNumbers addObject:@(i)];
-        }
+        [remainingNumbersSet addObject:@(i)];
     }
-    
+    [remainingNumbersSet minusSet:[NSSet setWithArray:fizzNumbers]];
+    [remainingNumbersSet minusSet:[NSSet setWithArray:buzzNumbers]];
+    [remainingNumbersSet minusSet:[NSSet setWithArray:fizzBuzzNumbers]];
+    NSArray *remainingNumbers = [remainingNumbersSet allObjects];
+
     NSDictionary<NSNumber *, NSString *> *actual = [self.codingChallenge fizzBuzz];
     for (NSNumber *n in fizzNumbers) {
         XCTAssertEqualObjects(actual[n], @"Fizz");
     }
-    
+
     for (NSNumber *n in buzzNumbers) {
         XCTAssertEqualObjects(actual[n], @"Buzz");
     }
-    
+
     for (NSNumber *n in fizzBuzzNumbers) {
         XCTAssertEqualObjects(actual[n], @"FizzBuzz");
     }
-    
+
     for (NSNumber *n in remainingNumbers) {
         XCTAssertEqualObjects(actual[n], @"");
     }
 }
-
 @end
